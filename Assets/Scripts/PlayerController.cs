@@ -35,6 +35,7 @@ public class PlayerController : MonoBehaviour
     bool _endedJumpEarly;
     bool _canProcessJump;
     bool _hasBufferedJump;
+    bool _isStunned;
 
     float _frameUngrounded;
     float _jumpPressTime;
@@ -51,6 +52,11 @@ public class PlayerController : MonoBehaviour
     {
         _time += Time.deltaTime;
         GatherInput();
+
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            _isStunned = !_isStunned;
+        }
     }
     private void FixedUpdate()
     {
@@ -60,18 +66,17 @@ public class PlayerController : MonoBehaviour
         ProcessHorizontal();
         HandleGravity();
 
-        _rb.velocity = _frameVelocity + _extVelocity;
-        _extVelocity = Vector2.zero;
-        
+        _rb.velocity = _frameVelocity;
     }
     private void ProcessHorizontal()
     {
-        // No movement - slow down
-        if(_frameInput.Move.x == 0)
+        // No input - slow down or stop
+        if(_frameInput.Move.x == 0 || _isStunned)
         {
             var decel = _grounded ? GroundDecel : AirDecel;
             _frameVelocity.x = Mathf.MoveTowards(_frameVelocity.x, 0, decel * Time.fixedDeltaTime);
         }
+        // Input - move
         else
         {
             _frameVelocity.x = Mathf.MoveTowards(_frameVelocity.x, _frameInput.Move.x * MaxVertSpeed, VertAccel * Time.fixedDeltaTime);
@@ -79,26 +84,27 @@ public class PlayerController : MonoBehaviour
     }
     private void GatherInput()
     {
+        // Get input for this frame
         _frameInput = new FrameInput
         {
             JumpDown = Input.GetButtonDown("Jump"),
             JumpHeld = Input.GetButton("Jump"),
             Move = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"))
         };
-
-        if (_frameInput.JumpDown)
+        // Check if we should process a jump input
+        if (_frameInput.JumpDown && !_isStunned)
         {
             _canProcessJump = true;
             _jumpPressTime = _time;
         }
     }
-    // Checks for ground collision
+    // Checks for collision with ground/ceiling
     private void CheckGrounded()
     {
         bool groundHit = Physics2D.BoxCast(_col.bounds.center, _col.size, 0, Vector2.down, GroundDistance, ~PlayerLayer);
         bool ceilingHit = Physics2D.BoxCast(_col.bounds.center, _col.size, 0, Vector2.up, GroundDistance, ~PlayerLayer);
 
-        // Hit a ceiling
+        // Hit a ceiling, so stop upward velocity to prevent ceiling sticking
         if (ceilingHit) _frameVelocity.y = Mathf.Min(0, _frameVelocity.y);
         // Landed
         if(!_grounded && groundHit)
@@ -135,8 +141,10 @@ public class PlayerController : MonoBehaviour
         _coyoteable = false;
         _frameVelocity.y = JumpPower;
     }
+    // Processes falling
     private void HandleGravity()
     {
+        // Helps keep player attached to the ground
         if (_grounded && _frameVelocity.y <= 0f)
         {
             _frameVelocity.y = GroundingForce;
@@ -144,6 +152,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             var inAirGravity = FallAccel;
+            // Give a "boost" to the gravity to end a jump early, if applicable
             if (_endedJumpEarly && _frameVelocity.y > 0) inAirGravity *= JumpEndEarlyGravMod;
             _frameVelocity.y = Mathf.MoveTowards(_frameVelocity.y, -TerminalVelocity, inAirGravity * Time.fixedDeltaTime);
         }
