@@ -27,7 +27,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D _rb;
     private BoxCollider2D _col;
     private FrameInput _frameInput;
-    private Vector2 _frameVelocity; 
+    private Vector2 _frameVelocity;
+    private Vector2 _extVelocity;
 
     bool _grounded;
     bool _coyoteable;
@@ -59,7 +60,8 @@ public class PlayerController : MonoBehaviour
         ProcessHorizontal();
         HandleGravity();
 
-        _rb.velocity = _frameVelocity;
+        _rb.velocity = _frameVelocity + _extVelocity;
+        _extVelocity = Vector2.zero;
         
     }
     private void ProcessHorizontal()
@@ -81,7 +83,7 @@ public class PlayerController : MonoBehaviour
         {
             JumpDown = Input.GetButtonDown("Jump"),
             JumpHeld = Input.GetButton("Jump"),
-            Move = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"))
+            Move = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"))
         };
 
         if (_frameInput.JumpDown)
@@ -93,8 +95,6 @@ public class PlayerController : MonoBehaviour
     // Checks for ground collision
     private void CheckGrounded()
     {
-        //bool groundHit = Physics2D.CapsuleCast(_col.bounds.center, _col.size, CapsuleDirection2D.Vertical, 0, Vector2.down, GroundDistance, ~PlayerLayer);
-        //bool ceilingHit = Physics2D.CapsuleCast(_col.bounds.center, _col.size, CapsuleDirection2D.Horizontal, 0, Vector2.up, GroundDistance, ~PlayerLayer);
         bool groundHit = Physics2D.BoxCast(_col.bounds.center, _col.size, 0, Vector2.down, GroundDistance, ~PlayerLayer);
         bool ceilingHit = Physics2D.BoxCast(_col.bounds.center, _col.size, 0, Vector2.up, GroundDistance, ~PlayerLayer);
 
@@ -129,7 +129,6 @@ public class PlayerController : MonoBehaviour
     // Executes the jump
     private void ExecuteJump()
     {
-        Debug.Log("Jumping!");
         _endedJumpEarly = false;
         _jumpPressTime = 0;
         _hasBufferedJump = false;
@@ -148,6 +147,10 @@ public class PlayerController : MonoBehaviour
             if (_endedJumpEarly && _frameVelocity.y > 0) inAirGravity *= JumpEndEarlyGravMod;
             _frameVelocity.y = Mathf.MoveTowards(_frameVelocity.y, -TerminalVelocity, inAirGravity * Time.fixedDeltaTime);
         }
+    }
+    public void AddExternalAcceleration(Vector2 dir, float accel, float max)
+    {
+        _frameVelocity = Vector2.MoveTowards(_frameVelocity, dir * max, accel * Time.fixedDeltaTime);
     }
     public struct FrameInput
     {
