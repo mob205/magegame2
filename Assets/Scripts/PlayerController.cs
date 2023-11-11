@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
 public class PlayerController : MonoBehaviour
@@ -23,7 +22,8 @@ public class PlayerController : MonoBehaviour
     public float MaxVertSpeed = 14;
     public float AirDecel = 110;
     public float GroundDecel = 60;
-    
+
+    private PlayerInput _playerInput;
     private Rigidbody2D _rb;
     private BoxCollider2D _col;
     private FrameInput _frameInput;
@@ -45,6 +45,7 @@ public class PlayerController : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody2D>();
         _col = GetComponent<BoxCollider2D>();
+        _playerInput = GetComponent<PlayerInput>();
 
         Physics2D.queriesStartInColliders = false;
     }
@@ -87,9 +88,12 @@ public class PlayerController : MonoBehaviour
         // Get input for this frame
         _frameInput = new FrameInput
         {
-            JumpDown = Input.GetButtonDown("Jump"),
-            JumpHeld = Input.GetButton("Jump"),
-            Move = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"))
+            JumpDown = _playerInput.actions["Jump"].WasPressedThisFrame(),
+            JumpHeld = _playerInput.actions["Jump"].IsPressed(),
+            Move = new Vector2(_playerInput.actions["Horizontal"].ReadValue<float>(), 0)
+            //JumpDown = Input.GetButtonDown("Jump"),
+            //JumpHeld = Input.GetButton("Jump"),
+            //Move = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"))
         };
         // Check if we should process a jump input
         if (_frameInput.JumpDown && !_isStunned)
@@ -136,7 +140,7 @@ public class PlayerController : MonoBehaviour
     private void ExecuteJump()
     {
         _endedJumpEarly = false;
-        _jumpPressTime = 0;
+        _jumpPressTime = _time;
         _hasBufferedJump = false;
         _coyoteable = false;
         _frameVelocity.y = JumpPower;

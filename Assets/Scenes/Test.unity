@@ -2493,6 +2493,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Black Hole
       objectReference: {fileID: 0}
+    - target: {fileID: 3311265511068837015, guid: 0f1ebbafe3f6ffe448887a176181611b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2549,38 +2553,6 @@ PrefabInstance:
     - target: {fileID: 8299831747895180789, guid: b77c7fe8234ea5d409928b28d03f487c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8766536485436872233, guid: b77c7fe8234ea5d409928b28d03f487c, type: 3}
-      propertyPath: _axes.Array.size
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 8766536485436872233, guid: b77c7fe8234ea5d409928b28d03f487c, type: 3}
-      propertyPath: _axes.Array.data[0]
-      value: Dash
-      objectReference: {fileID: 0}
-    - target: {fileID: 8766536485436872233, guid: b77c7fe8234ea5d409928b28d03f487c, type: 3}
-      propertyPath: _axes.Array.data[1]
-      value: Heal
-      objectReference: {fileID: 0}
-    - target: {fileID: 8766536485436872233, guid: b77c7fe8234ea5d409928b28d03f487c, type: 3}
-      propertyPath: _axes.Array.data[2]
-      value: Spell 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8766536485436872233, guid: b77c7fe8234ea5d409928b28d03f487c, type: 3}
-      propertyPath: _axes.Array.data[3]
-      value: Spell 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8766536485436872233, guid: b77c7fe8234ea5d409928b28d03f487c, type: 3}
-      propertyPath: _axes.Array.data[4]
-      value: Spell 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8766536485436872233, guid: b77c7fe8234ea5d409928b28d03f487c, type: 3}
-      propertyPath: _axes.Array.data[5]
-      value: Spell 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 8766536485436872233, guid: b77c7fe8234ea5d409928b28d03f487c, type: 3}
-      propertyPath: _axes.Array.data[6]
-      value: Spell 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

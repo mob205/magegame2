@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8827800817275119684}
   - component: {fileID: 7742646073307112141}
   - component: {fileID: 4203754323351856974}
+  - component: {fileID: 7551355148763408693}
   m_Layer: 0
   m_Name: playerbrown
   m_TagString: Untagged
@@ -75,12 +76,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3b2aff2d56bc764f89070133ab9c174, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _axes:
-  - 
-  - 
-  - 
-  - 
-  - 
+  _inputs:
+  - Dash
+  - Heal
+  - Spell 1
+  - Spell 2
+  - Spell 3
+  - Spell 4
+  - Spell 5
 --- !u!212 &8827800817275119684
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -205,3 +208,69 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.2, y: 2}
   m_EdgeRadius: 0
+--- !u!114 &7551355148763408693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3101219259685725123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 394d9fb9e69031c4eb307ed91505e674, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 441a9d36-e272-4a5b-8b72-58dd79738377
+    m_ActionName: Player/Horizontal[/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a8da4cb7-fbbf-4e48-8bd2-73bb7b082758
+    m_ActionName: Player/Jump[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 396d667f-1bca-4b55-b225-aa14e0265d7d
+    m_ActionName: Player/Dash[/Keyboard/shift]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6105a4fd-4567-40c8-8595-90e20b392fe3
+    m_ActionName: Player/Heal[/Keyboard/q]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 70679d95-78ff-45d4-b188-5f985099d979
+    m_ActionName: Player/Spell 1[/Keyboard/1,/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8ae8b195-2f6b-4520-9b1d-86e5b40b2a26
+    m_ActionName: Player/Spell 2[/Keyboard/2,/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: cbd3caf5-3d43-476c-905c-9e68a422a914
+    m_ActionName: Player/Spell 3[/Keyboard/3]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 13c437f1-32a1-4333-b4fd-db96dc7b4551
+    m_ActionName: Player/Spell 4[/Keyboard/4]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f92615f1-9494-456c-9f67-661f9ef08cb4
+    m_ActionName: Player/Spell 5[/Keyboard/5]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}

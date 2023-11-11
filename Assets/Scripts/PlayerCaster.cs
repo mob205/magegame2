@@ -1,25 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerCaster : MonoBehaviour
 {
-    [SerializeField] private string[] _axes;
+    [SerializeField] private string[] _inputs;
+
+    private PlayerInput _playerInput;
+    private void Awake()
+    {
+        _playerInput = GetComponent<PlayerInput>();
+    }
     private void Update()
     {
         CastAbilities();
     }
     private void CastAbilities()
     {
-        for(int i = 0; i < _axes.Length; i++)
+        for(int i = 0; i < _inputs.Length; i++)
         {
-            if (Input.GetButtonDown(_axes[i]))
+            if (_playerInput.actions[_inputs[i]].WasPressedThisFrame())
             {
-                Debug.Log($"Firing ability {_axes[i]}");
+                Debug.Log($"Firing ability {_inputs[i]}");
             } 
-            else if (Input.GetButtonUp(_axes[i]))
+            else if (_playerInput.actions[_inputs[i]].WasReleasedThisFrame())
             {
-                Debug.Log($"Releasing abilit {_axes[i]}");
+                Debug.Log($"Releasing ability {_inputs[i]}");
             }
         }
     }
