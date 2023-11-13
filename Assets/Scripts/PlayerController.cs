@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -28,7 +29,6 @@ public class PlayerController : MonoBehaviour
     private BoxCollider2D _col;
     private FrameInput _frameInput;
     private Vector2 _frameVelocity;
-    private Vector2 _extVelocity;
 
     bool _grounded;
     bool _coyoteable;
@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
     bool _canProcessJump;
     bool _hasBufferedJump;
     bool _isStunned;
+    bool _ignoreForces;
 
     float _frameUngrounded;
     float _jumpPressTime;
@@ -56,7 +57,9 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Z))
         {
+            _frameVelocity = Vector2.zero;
             _isStunned = !_isStunned;
+            _ignoreForces = !_ignoreForces;
         }
     }
     private void FixedUpdate()
@@ -148,6 +151,7 @@ public class PlayerController : MonoBehaviour
     // Processes falling
     private void HandleGravity()
     {
+        if (_ignoreForces) { return; }
         // Helps keep player attached to the ground
         if (_grounded && _frameVelocity.y <= 0f)
         {
@@ -161,9 +165,37 @@ public class PlayerController : MonoBehaviour
             _frameVelocity.y = Mathf.MoveTowards(_frameVelocity.y, -TerminalVelocity, inAirGravity * Time.fixedDeltaTime);
         }
     }
+    // Applies an acceleration to the player
     public void AddExternalAcceleration(Vector2 dir, float accel, float max)
     {
+        if (_ignoreForces) { return; }
         _frameVelocity = Vector2.MoveTowards(_frameVelocity, dir * max, accel * Time.fixedDeltaTime);
+    }
+    // Adds a velocity to the player
+    public void AddExternalVelocity(Vector2 dir, float magnitude)
+    {
+        _frameVelocity += (dir * magnitude);
+    }
+    // Toggles stun
+    public void ToggleStun()
+    {
+        _isStunned = !_isStunned;
+    }
+    // Toggles gravity
+    public void ToggleForce()
+    {
+        _ignoreForces = !_ignoreForces;
+    }
+    // Sets velocity to zero
+    public void ResetVelocity()
+    {
+        _frameVelocity = Vector2.zero;
+    }
+    // Gets the direction of the player's horizontal input.
+    // Returns 1 for right/neutral and -1 for left
+    public int GetMovementDir()
+    {
+        return Math.Sign(_frameInput.Move.x);
     }
     public struct FrameInput
     {

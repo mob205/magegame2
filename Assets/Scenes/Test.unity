@@ -123,6 +123,52 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &257884065
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 257884067}
+  - component: {fileID: 257884066}
+  m_Layer: 0
+  m_Name: Ability
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &257884066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 257884065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab8c3f8f99e7a794ba6c9f8702956ee1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _baseCooldown: 0
+  _icon: {fileID: 0}
+--- !u!4 &257884067
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 257884065}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 775.10004, y: -9.684906, z: -336.69534}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -184,7 +230,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 8
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2451,11 +2497,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2439876991110285770, guid: 0f1ebbafe3f6ffe448887a176181611b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -21.1
+      value: -16.8
       objectReference: {fileID: 0}
     - target: {fileID: 2439876991110285770, guid: 0f1ebbafe3f6ffe448887a176181611b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5.1
+      value: -5.8
       objectReference: {fileID: 0}
     - target: {fileID: 2439876991110285770, guid: 0f1ebbafe3f6ffe448887a176181611b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2514,6 +2560,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: playerbrown
       objectReference: {fileID: 0}
+    - target: {fileID: 3747239382681577350, guid: b77c7fe8234ea5d409928b28d03f487c, type: 3}
+      propertyPath: _baseCooldown
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8299831747895180789, guid: b77c7fe8234ea5d409928b28d03f487c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 18.7
@@ -2567,3 +2617,4 @@ SceneRoots:
   - {fileID: 2008175454}
   - {fileID: 7599906752818186954}
   - {fileID: 3339969777740854941}
+  - {fileID: 257884067}
