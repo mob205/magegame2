@@ -27,6 +27,8 @@ public class PlayerController : MonoBehaviour
     private PlayerInput _playerInput;
     private Rigidbody2D _rb;
     private BoxCollider2D _col;
+    private Animator _anim; 
+
     private FrameInput _frameInput;
     private Vector2 _frameVelocity;
 
@@ -47,6 +49,7 @@ public class PlayerController : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         _col = GetComponent<BoxCollider2D>();
         _playerInput = GetComponent<PlayerInput>();
+        _anim = GetComponent<Animator>();
 
         Physics2D.queriesStartInColliders = false;
     }
@@ -77,12 +80,15 @@ public class PlayerController : MonoBehaviour
         // No input - slow down or stop
         if(_frameInput.Move.x == 0 || _isStunned)
         {
+            _anim.SetBool("IsWalking", false);
             var decel = _grounded ? GroundDecel : AirDecel;
             _frameVelocity.x = Mathf.MoveTowards(_frameVelocity.x, 0, decel * Time.fixedDeltaTime);
         }
         // Input - move
         else
         {
+            _anim.SetBool("IsWalking", true);
+            _anim.SetFloat("Direction", GetMovementDir());
             _frameVelocity.x = Mathf.MoveTowards(_frameVelocity.x, _frameInput.Move.x * MaxVertSpeed, VertAccel * Time.fixedDeltaTime);
         }
     }
@@ -94,9 +100,6 @@ public class PlayerController : MonoBehaviour
             JumpDown = _playerInput.actions["Jump"].WasPressedThisFrame(),
             JumpHeld = _playerInput.actions["Jump"].IsPressed(),
             Move = new Vector2(_playerInput.actions["Horizontal"].ReadValue<float>(), 0)
-            //JumpDown = Input.GetButtonDown("Jump"),
-            //JumpHeld = Input.GetButton("Jump"),
-            //Move = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"))
         };
         // Check if we should process a jump input
         if (_frameInput.JumpDown && !_isStunned)
@@ -126,6 +129,8 @@ public class PlayerController : MonoBehaviour
             _grounded = false;
             _frameUngrounded = _time;
         }
+
+        _anim.SetBool("Grounded", _grounded);
     }
     // Checks if a jump is possible
     private void ProcessJump()
