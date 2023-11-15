@@ -77,6 +77,7 @@ public class PlayerController : MonoBehaviour
     }
     private void ProcessHorizontal()
     {
+        if (_ignoreForces) { return; }
         // No input - slow down or stop
         if(_frameInput.Move.x == 0 || _isStunned)
         {
@@ -182,9 +183,9 @@ public class PlayerController : MonoBehaviour
         _frameVelocity += (dir * magnitude);
     }
     // Toggles stun
-    public void ToggleStun()
+    public void ToggleStun(bool state)
     {
-        _isStunned = !_isStunned;
+        _isStunned = state;
     }
     // Toggles gravity
     public void ToggleForce()

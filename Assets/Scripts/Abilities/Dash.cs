@@ -25,14 +25,14 @@ public class Dash : Ability
     {
         var dir = new Vector2(_player.GetMovementDir(), 0);
         _player.ResetVelocity();
-        _player.ToggleStun();
+        _player.ToggleStun(true);
         _player.ToggleForce();
         _player.AddExternalVelocity(dir, _dashForce);
 
         yield return new WaitForSeconds(_dashDuration);
 
         _player.ResetVelocity();
-        _player.ToggleStun();
+        _player.ToggleStun(false);
         _player.ToggleForce();
     }
     public override bool CanCast(bool isCasting)
