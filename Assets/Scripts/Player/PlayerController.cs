@@ -57,13 +57,6 @@ public class PlayerController : MonoBehaviour
     {
         _time += Time.deltaTime;
         GatherInput();
-
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            _frameVelocity = Vector2.zero;
-            _isStunned = !_isStunned;
-            _ignoreForces = !_ignoreForces;
-        }
     }
     private void FixedUpdate()
     {

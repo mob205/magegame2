@@ -10,11 +10,7 @@ public class Dash : Ability
 
     private void Awake()
     {
-        _player = GetComponent<PlayerController>();
-    }
-    private void Update()
-    {
-        UpdateCooldown();
+        _player = GetComponentInParent<PlayerController>();
     }
     public override void CastAbility(Transform target)
     {

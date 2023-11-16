@@ -17,7 +17,7 @@ public class PlayerCaster : MonoBehaviour
     }
     private void Start()
     {
-        Abilities = GetComponents<Ability>();
+        Abilities = GetComponentsInChildren<Ability>();
     }
     private void Update()
     {
@@ -27,13 +27,13 @@ public class PlayerCaster : MonoBehaviour
     {
         for(int i = 0; i < Abilities.Length; i++)
         {
-            if (_playerInput.actions[_inputs[i]].WasPressedThisFrame() && Abilities[i].CanCast(_isCasting))
+            if (_playerInput.actions[_inputs[i]].IsPressed() && Abilities[i].CanCast(_isCasting))
             {
                 Abilities[i].CastAbility(Mouse.Position);
             } 
             else if (_playerInput.actions[_inputs[i]].WasReleasedThisFrame())
             {
-                Debug.Log($"Releasing ability {_inputs[i]}");
+                Abilities[i].StopAbility();
             }
         }
     }

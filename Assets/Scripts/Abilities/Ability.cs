@@ -15,9 +15,12 @@ public class Ability : MonoBehaviour
     {
         get { return _icon; }
     }
-
     protected bool _isOnCooldown;
     protected float _remainingCooldown;
+    protected virtual void Update()
+    {
+        UpdateCooldown();
+    }
     protected virtual void UpdateCooldown()
     {
         if (_isOnCooldown)
@@ -31,11 +34,11 @@ public class Ability : MonoBehaviour
     }
     public virtual void CastAbility(Transform target)
     {
-        Debug.Log("Casting ability.");
+        // Cast ability
     }
     public virtual void StopAbility()
     {
-        Debug.Log("Stopping ability.");
+        // Stop ability
     }
     protected void StartCooldown()
     {

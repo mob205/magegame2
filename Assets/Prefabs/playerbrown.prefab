@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 8299831747895180789}
   - component: {fileID: 8273564754026056236}
   - component: {fileID: 8766536485436872233}
-  - component: {fileID: 3747239382681577350}
   - component: {fileID: 8827800817275119684}
   - component: {fileID: 7742646073307112141}
   - component: {fileID: 4203754323351856974}
@@ -86,22 +85,6 @@ MonoBehaviour:
   - Spell 3
   - Spell 4
   - Spell 5
---- !u!114 &3747239382681577350
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3101219259685725123}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85e64347c6fe64e4da2d0528643e8ecb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _baseCooldown: 1
-  _icon: {fileID: 0}
-  _dashForce: 50
-  _dashDuration: 0.15
 --- !u!212 &8827800817275119684
 SpriteRenderer:
   m_ObjectHideFlags: 0
