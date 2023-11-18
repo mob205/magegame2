@@ -51,7 +51,6 @@ public class PlayerController : MonoBehaviour
         _playerInput = GetComponent<PlayerInput>();
         _anim = GetComponent<Animator>();
 
-        Physics2D.queriesStartInColliders = false;
     }
     private void Update()
     {

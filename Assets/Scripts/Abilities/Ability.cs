@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class Ability : MonoBehaviour
 {
-    [SerializeField] protected float _baseCooldown;
+    [Header("Menu")]
     [SerializeField] protected Sprite _icon;
+    [SerializeField] private string _name;
+    [TextArea][SerializeField] private string _description;
+    [Header("Gameplay")]
+    [SerializeField] protected float _baseCooldown;
+    
 
-    public float Cooldown
+    public float BaseCooldown
     {
         get { return _baseCooldown; }
     }
@@ -15,8 +20,13 @@ public class Ability : MonoBehaviour
     {
         get { return _icon; }
     }
+    public string Name
+    {
+        get { return _name; }
+    }
+    public float RemainingCooldown { get; private set; }
+
     protected bool _isOnCooldown;
-    protected float _remainingCooldown;
     protected virtual void Update()
     {
         UpdateCooldown();
@@ -25,9 +35,9 @@ public class Ability : MonoBehaviour
     {
         if (_isOnCooldown)
         {
-            _remainingCooldown -= Time.deltaTime;
+            RemainingCooldown -= Time.deltaTime;
         }
-        if(_remainingCooldown <= 0)
+        if(RemainingCooldown <= 0)
         {
             _isOnCooldown = false;
         }
@@ -43,7 +53,7 @@ public class Ability : MonoBehaviour
     protected void StartCooldown()
     {
         _isOnCooldown = true;
-        _remainingCooldown = _baseCooldown;
+        RemainingCooldown = _baseCooldown;
     }
     public virtual bool CanCast(bool isCasting)
     {

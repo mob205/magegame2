@@ -45,10 +45,8 @@ public class Interactable : MonoBehaviour
     }
     private void CheckInteract(InputAction.CallbackContext context)
     {
-        Debug.Log("Checking for an interaction.");
         if (_inRange)
         {
-            Debug.Log("Interacting");
             Interact();
         }
     }

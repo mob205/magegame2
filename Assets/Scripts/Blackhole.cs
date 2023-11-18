@@ -13,11 +13,10 @@ public class Blackhole : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        float distance = (transform.position - _player.transform.position).magnitude;
-        Vector2 direction = (transform.position - _player.transform.position).normalized;
-        float magnitude = Force / Mathf.Sqrt(distance);
+        var distance = (transform.position - _player.transform.position).magnitude;
+        var direction = (transform.position - _player.transform.position).normalized;
+        var magnitude = Force / Mathf.Sqrt(distance);
 
         _player.AddExternalAcceleration(direction, magnitude, MaxSpeed);
-        //_player.AddExternalVelocity(Mathf.Clamp(magnitude, 0, MaxSpeed) * direction);
     }
 }
